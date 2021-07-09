@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juni HOME</title>
+    <link rel="stylesheet" href="style.css"></link>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="clock">
+            <span class="clock1">19:48</span>
+            <span class="clock2">2021.07.09 Fri</span>
+        </div>
+        <div class="change-background">
+            <input class="change-background__btn" type="button" value="Change New World!" />
+        </div>
+        <div class="weather">
+
+        </div>
+        <div class="login">
+            <span class="greeting hidden" style="font-style: italic;">Hello,   </span><span class="hidden" id="login-user"></span>
+            <input class="sign-in__btn" type="button" value="Sign in" />
+        </div>
+
+    </header>
+
+    <div class="login-modal hidden">
+        <h1 class="login-modal__intro">Hello, booyah~!</h1>
+        <form class="login-form ">
+            <input id="username" type="text" placeholder="ID"/>
+            <input id="password" type="password" placeholder="Password" required/>
+            <input class="login__btn" type="button" value="Log in" />
+        </form>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
