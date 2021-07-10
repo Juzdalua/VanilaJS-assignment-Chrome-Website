@@ -90,3 +90,25 @@ if(savedUsername === null){
 else{
     showUser(savedUsername);
 }
+
+// Weather
+const API_KEY = "21e7354e03cfb05c15c5ad310b03b8ab";
+function myGeo(position){
+    console.log(position);
+   const lat = position.coords.latitude;
+   const lon = position.coords.longitude;
+   console.log(lat, lon);
+
+   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+   fetch(url).then(response => response.json().then(data=>{
+       console.log(data);
+       document.querySelector(".city-name").innerText = 
+       `${data.name} ${data.sys.country}`;
+       document.querySelector(".city-weather").innerText = 
+       `${data.weather[0].main} / Clouds : ${data.clouds.all}% / ${data.main.temp}C`;
+   }));
+}
+function myGeoErr(){
+    alert("We  can`t find your place.")
+}
+navigator.geolocation.getCurrentPosition(myGeo, myGeoErr);
