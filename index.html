@@ -22,14 +22,27 @@
             <div class="city-weather"></div>
         </div>
         <div class="login">
-            <span class="greeting hidden" style="font-style: italic;">Hello,   </span><span class="hidden" id="login-user"></span>
+            <span class="greeting hidden" style="font-style: italic;">Hello,</span><span class="hidden" id="login-user"></span>
+            <input class=" logout hidden" type="button" value="Log out"/>
             <input class="sign-in__btn" type="button" value="Sign in" />
         </div>
 
     </header>
+    
+    <div class="todo">
+        <i class=" fas fa-angle-double-left fa-5x todo-connect"></i>
+        <ul class="todo-lists">
+            <div class="todo-div">
+                <input type="text" class="todo-input" required placeholder="Write what you want"/>
+                <input type="button" class="todo-btn" value="Write and Click!"/>
+            </div>
+        </ul>
+    </div>
 
     <div class="login-modal hidden">
-        <h1 class="login-modal__intro">Hello, booyah~!</h1>
+        <span class="login-modal__intro">Hello, booyah~!
+            <a class="login-close"><i class="far fa-times-circle"></i></a>
+        </span>
         <form class="login-form ">
             <input id="username" type="text" placeholder="ID"/>
             <input id="password" type="password" placeholder="Password" required/>
@@ -37,6 +50,7 @@
         </form>
     </div>
 
+    <script src="https://kit.fontawesome.com/20f15630ea.js" crossorigin="anonymous"></script>
     <script src="app.js"></script>
 </body>
 </html>

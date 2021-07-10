@@ -67,18 +67,30 @@ function showUser(savedUsername){
     document.querySelector(".greeting").classList.remove("hidden");    
     username.classList.remove("hidden");
     username.innerText = savedUsername;
+    document.querySelector(".logout").classList.remove("hidden");
 }
 
 function handlerLogin(event){
     //event.preventDefault();  왜 작동이 안될까..
 
-    const loginModal = document.querySelector(".login-modal");
-    loginModal.classList.add("hidden");    
-    const userId = document.querySelector("#username");
-    localStorage.setItem("username", userId.value);
-    showUser(userId.value);
-    
+    const password = document.querySelector("#password");
+    if(password.value !== ""){
+        const loginModal = document.querySelector(".login-modal");
+        loginModal.classList.add("hidden");    
+        const userId = document.querySelector("#username");
+        localStorage.setItem("username", userId.value);
+        showUser(userId.value);
+        userId.value=""
+        password.value=""
+    }else{
+        alert("Plz write your Password!!");
+    }
 }
+
+function handlerLoginClose(){
+    document.querySelector(".login-modal").classList.add("hidden");
+}
+
 const logInBtn = document.querySelector(".login__btn");
 const savedUsername = localStorage.getItem("username");
 
@@ -91,24 +103,102 @@ else{
     showUser(savedUsername);
 }
 
+document.querySelector(".login-close").addEventListener("click", handlerLoginClose)
+
+//Log out
+function handlerLogout(){
+    
+    document.querySelector(".greeting").classList.add("hidden");
+    document.querySelector(".logout").classList.add("hidden");
+    document.querySelector("#login-user").classList.add("hidden");
+    document.querySelector(".sign-in__btn").classList.remove("hidden");
+    localStorage.removeItem("username");
+}
+document.querySelector(".logout").addEventListener("click", handlerLogout);
+
+
 // Weather
 const API_KEY = "21e7354e03cfb05c15c5ad310b03b8ab";
 function myGeo(position){
-    console.log(position);
    const lat = position.coords.latitude;
    const lon = position.coords.longitude;
-   console.log(lat, lon);
 
-   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
    fetch(url).then(response => response.json().then(data=>{
-       console.log(data);
        document.querySelector(".city-name").innerText = 
        `${data.name} ${data.sys.country}`;
-       document.querySelector(".city-weather").innerText = 
-       `${data.weather[0].main} / Clouds : ${data.clouds.all}% / ${data.main.temp}C`;
+
+        const weatherIcon = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`
+       
+
+       document.querySelector(".city-weather").innerHTML = 
+       `${data.weather[0].main} <img src="${weatherIcon}" class="weather-icon"> /  <i class="fas fa-temperature-high"></i> ${data.main.temp}`;
    }));
 }
 function myGeoErr(){
     alert("We  can`t find your place.")
 }
 navigator.geolocation.getCurrentPosition(myGeo, myGeoErr);
+
+//Todo
+function handlerHideTodo(){
+    document.querySelector(".todo-connect").style.visibility = "hidden";
+}
+function handlerShowTodo(){
+    document.querySelector(".todo-connect").style.visibility = "visible";
+}
+document.querySelector(".todo").addEventListener("mouseover", handlerHideTodo);
+document.querySelector(".todo").addEventListener("mouseout", handlerShowTodo);
+
+const newInput = document.querySelector(".todo-input");
+const newSubmit = document.querySelector(".todo-btn");
+
+let toDos = [];
+
+function handlerNewTodo(){
+
+    if(newInput.value !== ""){
+        const newObj = {
+            value:newInput.value,
+            ID:Date.now()
+        };
+        toDos.push(newObj);
+        saveTodo();
+        newInput.value = "";
+        showTodo(newObj);
+    }
+    else{
+        alert("I told you, Write!!!")
+    }
+}
+
+function saveTodo(){
+    localStorage.setItem("todos", JSON.stringify(toDos));
+}
+
+function showTodo(newObj){
+    const ul = document.querySelector(".todo-lists");
+    const li = document.createElement("li");
+    li.innerText = newObj.value;
+    li.id = newObj.ID;
+    const btn = document.createElement("button");
+    btn.innerText =  "❌";
+    li.appendChild(btn);
+    ul.appendChild(li);
+    btn.addEventListener("click", deleteTodo);
+}
+
+function deleteTodo(event){
+    const li2 = event.target.parentElement;
+    li2.remove();
+    toDos = toDos.filter((toDo) => toDo.ID !== parseInt(li2.id));
+    saveTodo();
+}
+
+const localTodos = localStorage.getItem("todos");
+if(localTodos !== null){
+    const parsedTodos = JSON.parse(localTodos);
+    toDos = parsedTodos;
+    parsedTodos.forEach(showTodo);
+}
+    newSubmit.addEventListener("click", handlerNewTodo);

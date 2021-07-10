@@ -57,7 +57,8 @@ body {
 
 .change-background__btn:active,
 .sign-in__btn:active,
-.login__btn:active {
+.login__btn:active,
+.todo-btn:active{
   transform: scale(0.98);
 }
 
@@ -70,8 +71,7 @@ body {
   background-color: rgba(255, 253, 253, 0.6);
   border-radius: 10px;
   box-shadow: var(--box-shadow);
-  height:80%;
-
+  height:85%;
 }
 
 .login {
@@ -99,6 +99,11 @@ body {
   width: 100%;
   height: 110%;
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+.login-close{
+  cursor: pointer;
+  color:red;
 }
 
 .login-form input {
@@ -144,4 +149,86 @@ body {
   font-weight: bold;
   font-style: italic;
   font-size: 16px;
+}
+.city-weather{
+  display: flex;
+  align-items: center;
+}
+.city-name{
+  padding:5px;
+}
+
+.todo{
+  position: fixed; 
+  top:10vh;
+  height:90vh;
+  width: 50%;
+  left:95vw;
+  display: flex;
+  align-items: center;
+  
+}
+
+.todo:hover{
+  transform: translateX(-60%);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.todo-connect{
+  color: ivory;
+  box-shadow: var(--box-shadow);
+  background-color: rgba(255, 253, 253, 0.2);
+}
+
+.todo-lists{
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:flex-start;
+}
+
+.todo-input{
+  padding:20px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+}
+
+input:focus{
+  outline: none;
+}
+
+.todo-btn{
+  padding:15px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: var(--box-shadow);
+}
+
+.logout{
+  margin-left: 10px;
+  padding:5px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: var(--box-shadow);  
+  opacity: 0.8;
+}
+.logout:active{
+  transform: scale(0.8);
+}
+
+button{
+  cursor: pointer;
+}
+
+.todo-div{
+  margin-bottom: 20px;
+}
+
+.todo-lists li{
+  display: flex;
+  justify-content: space-between; 
 }
